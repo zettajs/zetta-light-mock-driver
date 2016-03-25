@@ -15,11 +15,6 @@ Light.prototype.init = function(config) {
     .when('off', {allow: ['turn-on']})
     .map('turn-on', this.turnOn)
     .map('turn-off', this.turnOff);
-    
-  var self = this;
-  setInterval(function() {
-    self.state == 'on' ? self.call('turn-off') : self.call('turn-on');
-  }, 1000);
 };
 
 Light.prototype.turnOn = function (cb) {
