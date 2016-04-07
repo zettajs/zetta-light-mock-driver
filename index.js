@@ -8,18 +8,20 @@ var IMAGE_URL_ROOT = 'http://www.zettaapi.org/icons/';
 var IMAGE_EXTENSION = '.png';
 var DEVICE_TYPE = 'light';
 
-var Light = module.exports = function() {
+var Light = module.exports = function(suggestedName) {
   Device.call(this);
   this.color = [0xFF, 0xFF, 0xFF];
   this.brightness = 50;
   this.blink = false;
+  this.style = {properties: {stateImage: {}}};
   this._interval = null;
+  this._suggestedName = suggestedName;
 };
 util.inherits(Light, Device);
 
 Light.prototype.init = function(config) {
   config
-    .name('Light')
+    .name(this._suggestedName)
     .type(DEVICE_TYPE)
     .state('off')
     .when('on', {allow: ['turn-off', 'set-color', 'set-brightness', 'set-blinker']})
@@ -93,12 +95,6 @@ Light.prototype._performLongOperation = function(initState, finalState, delay, c
 }
 
 Light.prototype._setStateImageURL = function(state) {
-  this.style = {
-    properties: {
-      stateImage: {
-        url: IMAGE_URL_ROOT + DEVICE_TYPE + '-' + state + IMAGE_EXTENSION,
-        tintMode: 'template'
-      }
-    }
-  }
+  this.style.properties.stateImage.url = IMAGE_URL_ROOT + DEVICE_TYPE + '-' + state + IMAGE_EXTENSION;
+  this.style.properties.stateImage.tintMode = 'template';
 }
