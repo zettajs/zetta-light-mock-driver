@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "node.extend": "^1.1.5",
-    "zetta": "^1.0.0-beta.6"
+    "zetta": "^1.1.0"
   }
 }
